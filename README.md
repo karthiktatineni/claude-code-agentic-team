@@ -94,6 +94,4 @@ Agent-to-Skill mappings are managed in the `.agents` JSON file in the project ro
 
 ---
 
-## 📜 License
 
-MIT License - Feel free to use this team to build the future! 🚀
