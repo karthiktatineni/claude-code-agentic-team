@@ -1,0 +1,14 @@
+{
+  "name": "ai-team-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for AI dev team communication",
+  "type": "module",
+  "main": "mcp-server.js",
+  "scripts": {
+    "start": "node mcp-server.js",
+    "dashboard": "node dashboard.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest"
+  }
+}
