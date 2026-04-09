@@ -1,0 +1,32 @@
+{
+  "prd": {
+    "skills": ["brainstorming", "writing-plans", "context-fundamentals"]
+  },
+  "researcher": {
+    "skills": ["filesystem-context", "memory-systems", "context-optimization", "brainstorming"]
+  },
+  "architect": {
+    "skills": ["composition-patterns", "tool-design", "context-fundamentals", "multi-agent-patterns"]
+  },
+  "coder": {
+    "skills": ["composition-patterns", "react-best-practices", "systematic-debugging", "test-driven-development", "receiving-code-review"]
+  },
+  "reviewer": {
+    "skills": ["requesting-code-review", "advanced-evaluation", "systematic-debugging"]
+  },
+  "tester": {
+    "skills": ["webapp-testing", "verification-before-completion", "test-driven-development"]
+  },
+  "ui": {
+    "skills": ["brand-guidelines", "theme-factory", "ui-ux-pro-max", "frontend-design"]
+  },
+  "security": {
+    "skills": ["systematic-debugging", "context-degradation"]
+  },
+  "documentation": {
+    "skills": ["doc-coauthoring", "writing-skills", "notebooklm"]
+  },
+  "production": {
+    "skills": ["finishing-a-development-branch", "using-git-worktrees"]
+  }
+}

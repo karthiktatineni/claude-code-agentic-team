@@ -157,7 +157,45 @@ async function runAgent(agentKey, retryCount = 0) {
 
     // Prepare context: Instructions + Current State
     const instructionPath = path.join(__dirname, 'agents', agent.file);
-    const instructions = fs.readFileSync(instructionPath, 'utf8');
+    let instructions = fs.readFileSync(instructionPath, 'utf8');
+
+    // --- SKILL INJECTION ---
+    const AGENTS_MAPPING_FILE = path.join(BASE_DIR, '.agents');
+    if (fs.existsSync(AGENTS_MAPPING_FILE)) {
+        try {
+            const mapping = JSON.parse(fs.readFileSync(AGENTS_MAPPING_FILE, 'utf8'));
+            const agentSkills = mapping[agentKey]?.skills || [];
+            if (agentSkills.length > 0) {
+                console.log(`\x1b[36m  🧠 Loading ${agentSkills.length} skills for ${agent.name}...\x1b[0m`);
+                let skillsContent = '\n\n### AGENT SKILLS & SPECIALIZED KNOWLEDGE\nYou have special training in the following areas. Follow these guidelines strictly:\n';
+                
+                for (const skillName of agentSkills) {
+                    const skillPath = path.join(BASE_DIR, 'skills for agents', 'skills', skillName);
+                    if (fs.existsSync(skillPath)) {
+                        // Priority: AGENTS.md > SKILL.md > README.md
+                        let foundSkillFile = null;
+                        for (const fileName of ['AGENTS.md', 'SKILL.md', 'README.md']) {
+                            const fullPath = path.join(skillPath, fileName);
+                            if (fs.existsSync(fullPath)) {
+                                foundSkillFile = fullPath;
+                                break;
+                            }
+                        }
+
+                        if (foundSkillFile) {
+                            const content = fs.readFileSync(foundSkillFile, 'utf8');
+                            skillsContent += `\n#### SKILL: ${skillName.toUpperCase()}\n${content}\n---\n`;
+                        }
+                    }
+                }
+                instructions = instructions + skillsContent;
+            }
+        } catch (e) {
+            console.warn(`⚠️ Failed to parse .agents mapping: ${e.message}`);
+        }
+    }
+    // -----------------------
+
     const state = readMcpState();
     
     // Create a memory context to help the agent resume work
